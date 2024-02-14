@@ -1,7 +1,6 @@
 package com.alex.SpringBootKafkaProject.controller;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import com.alex.SpringBootKafkaProject.kafkaConfigs.KafkaProducer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +20,7 @@ public class MessageController {
     // http:localhost:8080/api/v1/kafka/publish?message=hello world
     @GetMapping("/publish")
     public ResponseEntity<String> publish(@RequestParam("message") String message) {
-        ProducerRecord<String, String> record = new ProducerRecord<>("TestTest", message);
-        kafkaProducer.send(record);
+        kafkaProducer.sentMessage(message);
         return ResponseEntity.ok("Message sent to the topic");
     }
 
